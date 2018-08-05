@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context=".ShowPost">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/title"
+        android:text="Here Title Text Will Appear"
+        android:textSize="25dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:textColor="#000000"
+        android:textStyle="bold"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/details"
+        android:layout_below="@+id/title"
+        android:layout_marginLeft="10dp"
+        android:textStyle="italic"
+        android:text="Here details Text Will Appear"
+        android:textColor="#000000"/>
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="250dp"
+            android:layout_below="@+id/details"
+            android:id="@+id/post_img"
+            android:padding="5dp"
+            app:srcCompat="@drawable/on_loading"/>
+
+    <WebView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/content_view"
+        android:layout_below="@+id/post_img"
+        android:background="#ffffff"
+        android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/details2"
+        android:layout_below="@+id/content_view"
+        android:text="Here Comments Will Appear"
+        android:padding="10dp"
+        android:textColor="#000000"/>
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:id="@+id/comment"
+            android:layout_below="@+id/content_view"
+            android:textAlignment="center"
+            android:textStyle="bold"
+            android:drawableStart="@drawable/comment"
+            android:text="মন্তব্য"/>
+
+    </RelativeLayout>
+
+    </ScrollView>
+
+</android.support.constraint.ConstraintLayout>

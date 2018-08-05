@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            //main office start
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:text="কর্পোরেট অফিস, ঢাকা"
+                android:id="@+id/main"
+                android:textAlignment="center"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="20dp"
+                android:textColor="#ed1c24"
+                android:textStyle="bold"/>
+
+            <ImageView
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:src="@drawable/line"
+                android:layout_centerHorizontal="true"
+                android:id="@+id/mainline"
+                android:layout_below="@+id/main"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="5dp"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:text="১১৫, মজিদ ভবন (১ম ফ্লর), শহীদ লতিফ রোড,\nকশাই বাজার, দক্ষিণখান, উত্তরা, ঢাকা- ১২৩০\nমোবাইল: +88 017 12 05 78 46"
+                android:layout_below="@+id/mainline"
+                android:id="@+id/maintext"
+                android:textAlignment="center"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="5dp"
+                android:textColor="#444"/>
+
+            //dhaka office start
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:text="আলমডাঙ্গা অফিস"
+                android:id="@+id/dhaka"
+                android:layout_centerHorizontal="true"
+                android:layout_below="@+id/maintext"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="20dp"
+                android:textColor="#ed1c24"
+                android:textAlignment="center"
+                android:textStyle="bold"/>
+
+            <ImageView
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:src="@drawable/line"
+                android:id="@+id/dhakaline"
+                android:layout_below="@+id/dhaka"
+                android:layout_centerHorizontal="true"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="5dp"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="হাইরোড, আলমডাঙ্গা, চুয়াডাঙ্গা।\nই-মেইল: info@samprotikee.com\nমোবাইল নং-+880 19 15 43 94 06"
+                android:layout_below="@+id/dhakaline"
+                android:id="@+id/dhakatext"
+                android:layout_centerHorizontal="true"
+                android:textAlignment="center"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="5dp"
+                android:textColor="#444"
+                android:layout_marginBottom="20dp"/>
+
+            //foreign office details start
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:text="অস্ট্রেলিয়া অফিস"
+                android:id="@+id/bidesh"
+                android:layout_centerHorizontal="true"
+                android:layout_below="@+id/dhakatext"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="20dp"
+                android:textColor="#ed1c24"
+                android:textAlignment="center"
+                android:textStyle="bold"/>
+
+            <ImageView
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:src="@drawable/line"
+                android:id="@+id/bideshlne"
+                android:layout_below="@+id/bidesh"
+                android:layout_centerHorizontal="true"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="5dp"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="১৪ মিন্টো রোড, এনএসডব্লিউ ২৪৬৬,\n সিডনী, অস্ট্রেলিয়া \n মোবাইল: +61 046 9024820"
+                android:layout_below="@+id/bideshlne"
+                android:id="@+id/bideshtext"
+                android:layout_centerHorizontal="true"
+                android:textAlignment="center"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="5dp"
+                android:textColor="#444"
+                android:layout_marginBottom="20dp"/>
+        </RelativeLayout>
+
+    </ScrollView>
+</LinearLayout>
