@@ -12,8 +12,10 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -34,8 +36,9 @@ public class MainActivity extends AppCompatActivity
         pager.setAdapter(mapager);
         tab_strp=(PagerTabStrip)findViewById(R.id.tab_strip);
         tab_strp.setTextColor(Color.RED);
-        //   tab_strp.setTextSize(14,14);
-        // tab_strp.setTabIndicatorColor(Color.WHITE);
+        //tab_strp.setTextSize(14,14);
+        tab_strp.setGravity(Gravity.LEFT);
+        tab_strp.setTabIndicatorColor(Color.RED);
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(

@@ -13,8 +13,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
 
-//import com.github.florent37.diagonallayout.DiagonalLayout;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,7 +22,7 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class tab3 extends Fragment {
+public class tab4 extends Fragment {
 
     private RecyclerView recyclerView;
     private ProgressBar progressBar;
@@ -96,7 +94,7 @@ public class tab3 extends Fragment {
                 .build();
 
         RetrofitArrayApi service = retrofit.create(RetrofitArrayApi.class);
-        Call<List<WPImage>> call = service.getPostInfotab3();
+        Call<List<WPImage>> call = service.gallery();
 
         // to make call to dynamic URL
 
@@ -131,7 +129,7 @@ public class tab3 extends Fragment {
 
                     String time = response.body().get(i).getModified().toString();
 
-                    String tab = "tab3";
+                    String tab = "tab4";
 
                     list.add(new Model(Model.IMAGE_TYPE, tab, response.body().get(i).getTitle().getRendered(),
                             tempdetails,
@@ -155,3 +153,4 @@ public class tab3 extends Fragment {
         return mListPost;
     }
 }
+

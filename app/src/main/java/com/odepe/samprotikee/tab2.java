@@ -13,7 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
 
-import com.github.florent37.diagonallayout.DiagonalLayout;
+//import com.github.florent37.diagonallayout.DiagonalLayout;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,13 +30,13 @@ public class tab2 extends Fragment {
     private ProgressBar progressBar;
     private LinearLayoutManager mLayoutManager;
     private ArrayList<Model> list;
-    private Tab2RecyclerView adapter;
+    private RecyclerViewAdapter adapter;
     SwipeRefreshLayout swipeRefreshLayout;
-    DiagonalLayout diagonalLayout;
+    //DiagonalLayout diagonalLayout;
 
     private String baseURL = "http://www.samprotikee.com";
 
-    public static List<WPImage> mListPost;
+    public static List<WPImage> mListPost2;
 
 
     @Override
@@ -44,21 +44,31 @@ public class tab2 extends Fragment {
                              @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
 
-        final View view =inflater.inflate(R.layout.tab1,container,false);
+        final View view = inflater.inflate(R.layout.tab1, container, false);
 
         // post dekhar jonno cardview start
 
-        recyclerView = (RecyclerView)view.findViewById(R.id.recycler_view);
-        diagonalLayout = (DiagonalLayout)view.findViewById(R.id.diagonalLayout);
-        //progressBar = (ProgressBar)view.findViewById(R.id.progressbar);
-        diagonalLayout.setVisibility(View.GONE);
+        recyclerView = (RecyclerView) view.findViewById(R.id.recycler_view);
+        //diagonalLayout = (DiagonalLayout)view.findViewById(R.id.diagonalLayout);
+        progressBar = (ProgressBar) view.findViewById(R.id.progressBar);
+        //diagonalLayout.setVisibility(View.GONE);
 
-        swipeRefreshLayout = (SwipeRefreshLayout)view.findViewById(R.id.swipeRefresh);
+        swipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.swipeRefresh);
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                Intent login = new Intent(view.getContext(), MainActivity.class);
-                startActivity(login);
+                swipeRefreshLayout.setRefreshing(false);
+                progressBar.setVisibility(View.VISIBLE);
+                mLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
+                recyclerView.setLayoutManager(mLayoutManager);
+
+                list = new ArrayList<Model>();
+                /// call retrofill
+                getRetrofit();
+
+                adapter = new RecyclerViewAdapter(list, getContext());
+
+                recyclerView.setAdapter(adapter);
             }
         });
 
@@ -69,7 +79,7 @@ public class tab2 extends Fragment {
         /// call retrofill
         getRetrofit();
 
-        adapter = new Tab2RecyclerView(list, getContext());
+        adapter = new RecyclerViewAdapter(list, getContext());
 
         recyclerView.setAdapter(adapter);
 
@@ -78,7 +88,7 @@ public class tab2 extends Fragment {
 
     }
 
-    public void getRetrofit(){
+    public void getRetrofit() {
 
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(baseURL)
@@ -103,26 +113,27 @@ public class tab2 extends Fragment {
         // http://www.blueappsoftware.in/android/wp-json/wp/v2/posts/1179?fields=id,title
 
 
-
         call.enqueue(new Callback<List<WPImage>>() {
             @Override
             public void onResponse(Call<List<WPImage>> call, Response<List<WPImage>> response) {
-                Log.e("mainactivyt", " response "+ response.body());
-                mListPost = response.body();
-                //progressBar.setVisibility(View.GONE);
-                for (int i=0; i<response.body().size();i++){
-                    Log.e("main ", " title "+ response.body().get(i).getTitle().getRendered() + " "+
+                Log.e("mainactivyt", " response " + response.body());
+                mListPost2 = response.body();
+                progressBar.setVisibility(View.GONE);
+                for (int i = 0; i < response.body().size(); i++) {
+                    Log.e("main ", " title " + response.body().get(i).getTitle().getRendered() + " " +
                             response.body().get(i).getId());
 
                     //String tempdetails =  response.body().get(i).getExcerpt().getRendered().toString();
-                    String tempdetails =  response.body().get(i).getBetterFeaturedImage().getSourceUrl().toString();
+                    String tempdetails = response.body().get(i).getBetterFeaturedImage().getSourceUrl().toString();
                     //tempdetails = tempdetails.replace("<p>","");
                     //tempdetails = tempdetails.replace("</p>","");
                     //tempdetails = tempdetails.replace("[&hellip;]","");
 
-                    String time =  response.body().get(i).getModified().toString();
+                    String tab = "tab2";
 
-                    list.add( new Model( Model.IMAGE_TYPE,  response.body().get(i).getTitle().getRendered(),
+                    String time = response.body().get(i).getModified().toString();
+
+                    list.add(new Model(Model.IMAGE_TYPE, tab, response.body().get(i).getTitle().getRendered(),
                             tempdetails,
                             response.body().get(i).getBetterFeaturedImage().getSourceUrl(),
                             time));
@@ -139,7 +150,8 @@ public class tab2 extends Fragment {
         });
 
     }
-    public static List<WPImage> getList(){
-        return  mListPost;
+
+    public static List<WPImage> getList() {
+        return mListPost2;
     }
 }

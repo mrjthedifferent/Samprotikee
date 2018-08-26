@@ -25,6 +25,9 @@ public class ma_pager_adapter extends FragmentPagerAdapter {
             case 2:
                 tab3 t3 = new tab3();
                 return t3;
+            case 3:
+                tab4 t4 = new tab4();
+                return t4;
 
         }
         return null;
@@ -32,7 +35,7 @@ public class ma_pager_adapter extends FragmentPagerAdapter {
 
     @Override
     public int getCount() {
-        return 3;
+        return 4;
     }//set the number of tabs
 
     @Override
@@ -45,6 +48,8 @@ public class ma_pager_adapter extends FragmentPagerAdapter {
                 return "বৃহত্তর কুষ্টিয়া";
             case 2:
                 return "জাতীয়";
+            case 3:
+                return "ক্যামেরার কাঁচে";
         }
         return null;
     }

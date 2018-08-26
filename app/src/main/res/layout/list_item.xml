@@ -33,16 +33,12 @@
             android:ellipsize="end"
             android:text="Hellow  "/>
 
-        <TextView
+        <com.github.curioustechizen.ago.RelativeTimeTextView
             android:id="@+id/subtitle"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            style="@style/TextAppearance.AppCompat.Title"
-            android:maxLines="2"
-            android:layout_marginTop="10dp"
-            android:ellipsize="end"
-            android:visibility="gone"
-            android:text="Hellow  "/>
+            android:textSize="14sp"
+            android:textStyle="italic"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
 
     </LinearLayout>
 

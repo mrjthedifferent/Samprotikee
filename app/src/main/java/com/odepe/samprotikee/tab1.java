@@ -18,18 +18,14 @@ import android.widget.ProgressBar;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
-import com.flaviofaria.kenburnsview.KenBurnsView;
-import com.github.florent37.diagonallayout.DiagonalLayout;
+//import com.github.florent37.diagonallayout.DiagonalLayout;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import dmax.dialog.SpotsDialog;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -45,10 +41,10 @@ public class tab1 extends Fragment {
     private ArrayList<Model> list;
     private RecyclerViewAdapter adapter;
     TextView top_title;
-    KenBurnsView top_image;
+    ImageView top_image;
     SwipeRefreshLayout swipeRefreshLayout;
-    DiagonalLayout diagonalLayout;
-    String source="";
+    //DiagonalLayout diagonalLayout;
+    String source = "";
 
     private String baseURL = "http://www.samprotikee.com";
 
@@ -59,29 +55,45 @@ public class tab1 extends Fragment {
     public View onCreateView(LayoutInflater inflater,
                              @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        final View view=inflater.inflate(R.layout.tab1,container,false);
+        final View view = inflater.inflate(R.layout.tab1, container, false);
 
         // post dekhar jonno cardview start
 
-        recyclerView = (RecyclerView)view.findViewById(R.id.recycler_view);
+        recyclerView = (RecyclerView) view.findViewById(R.id.recycler_view);
         recyclerView.setHasFixedSize(true);
-        top_title = (TextView)view.findViewById(R.id.top_title);
-        top_image = (KenBurnsView) view.findViewById(R.id.top_image);
-        //progressBar = (ProgressBar)view.findViewById(R.id.progressbar);
-        dialog = new SpotsDialog(getActivity());
-        dialog.show();
+        //top_title = (TextView)view.findViewById(R.id.top_title);
+        //top_image = (ImageView) view.findViewById(R.id.top_image);
+        progressBar = (ProgressBar) view.findViewById(R.id.progressBar);
+        //dialog = new SpotsDialog(getActivity());
+        //dialog.show();
+
 
         //View
-        swipeRefreshLayout = (SwipeRefreshLayout)view.findViewById(R.id.swipeRefresh);
+        swipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.swipeRefresh);
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                Intent login = new Intent(view.getContext(), MainActivity.class);
-                startActivity(login);
+                swipeRefreshLayout.setRefreshing(false);
+                progressBar.setVisibility(View.VISIBLE);
+                // Intent login = new Intent(view.getContext(), MainActivity.class);
+                //startActivity(login);
+                mLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
+                recyclerView.setLayoutManager(mLayoutManager);
+
+                list = new ArrayList<Model>();
+                /// call retrofill
+                getRetrofit();
+
+                adapter = new RecyclerViewAdapter(list, getContext());
+
+                recyclerView.setAdapter(adapter);
             }
         });
 
-        diagonalLayout = (DiagonalLayout)view.findViewById(R.id.diagonalLayout);
+
+
+        /*diagonalLayout = (DiagonalLayout)view.findViewById(R.id.diagonalLayout);
+        diagonalLayout.setVisibility(View.GONE);
         diagonalLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -90,7 +102,7 @@ public class tab1 extends Fragment {
                 detail.putExtra("get_tab", "tab1");
                 startActivity(detail);
             }
-        });
+        });*/
 
 
         mLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
@@ -105,10 +117,10 @@ public class tab1 extends Fragment {
         recyclerView.setAdapter(adapter);
 
 
-        return  view;
+        return view;
     }
 
-    public void getRetrofit(){
+    public void getRetrofit() {
 
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(baseURL)
@@ -135,12 +147,13 @@ public class tab1 extends Fragment {
         call.enqueue(new Callback<List<WPImage>>() {
             @Override
             public void onResponse(Call<List<WPImage>> call, Response<List<WPImage>> response) {
-                Log.e("mainactivyt", " response "+ response.body());
+                Log.e("mainactivyt", " response " + response.body());
                 mListPost = response.body();
-                //progressBar.setVisibility(View.GONE);
-                dialog.dismiss();
+                progressBar.setVisibility(View.GONE);
+                //diagonalLayout.setVisibility(View.VISIBLE);
+                //dialog.dismiss();
 
-                top_title.setText(response.body().get(0).getTitle().getRendered());
+               /* top_title.setText(response.body().get(0).getTitle().getRendered());
                 Glide.with(getActivity())
                         .load(response.body().get(0).getBetterFeaturedImage().getSourceUrl())
                         .apply(new RequestOptions()
@@ -148,21 +161,23 @@ public class tab1 extends Fragment {
                                 .centerCrop()
                                 .dontAnimate()
                                 .dontTransform())
-                        .into(top_image);
+                        .into(top_image);*/
 
-                for (int i=0; i<response.body().size();i++){
-                    Log.e("main ", " title "+ response.body().get(i).getTitle().getRendered() + " "+
+                for (int i = 0; i < response.body().size(); i++) {
+                    Log.e("main ", " title " + response.body().get(i).getTitle().getRendered() + " " +
                             response.body().get(i).getId());
 
                     //String tempdetails =  response.body().get(i).getExcerpt().getRendered().toString();
-                    String tempdetails =  response.body().get(i).getBetterFeaturedImage().getSourceUrl().toString();
-                    tempdetails = tempdetails.replace("<p>","");
-                    tempdetails = tempdetails.replace("</p>","");
-                    tempdetails = tempdetails.replace("[&hellip;]","");
+                    String tempdetails = response.body().get(i).getBetterFeaturedImage().getSourceUrl().toString();
+                    tempdetails = tempdetails.replace("<p>", "");
+                    tempdetails = tempdetails.replace("</p>", "");
+                    tempdetails = tempdetails.replace("[&hellip;]", "");
 
-                    String time =  response.body().get(i).getModified().toString();
+                    String time = response.body().get(i).getModified().toString();
 
-                    list.add( new Model( Model.IMAGE_TYPE,  response.body().get(i).getTitle().getRendered(),
+                    String tab = "tab1";
+
+                    list.add(new Model(Model.IMAGE_TYPE, tab, response.body().get(i).getTitle().getRendered(),
                             tempdetails,
                             response.body().get(i).getBetterFeaturedImage().getSourceUrl(),
                             time));
@@ -181,7 +196,7 @@ public class tab1 extends Fragment {
     }
 
 
-    public static List<WPImage> getList(){
-        return  mListPost;
+    public static List<WPImage> getList() {
+        return mListPost;
     }
 }
