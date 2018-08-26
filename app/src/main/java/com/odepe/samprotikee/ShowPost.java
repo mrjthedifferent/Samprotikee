@@ -73,7 +73,7 @@ public class ShowPost extends AppCompatActivity {
         if (get_tab.equals("tab1")) {
 
             title.setText(tab1.mListPost.get(position).getTitle().getRendered());
-            share = tab4.mListPost.get(position).getTitle().getRendered();
+            //share = tab4.mListPost.get(position).getTitle().getRendered();
             //details.setText( MainActivity.mListPost.get(position).getModified());
 
             Typeface font = Typeface.createFromAsset(ShowPost.this.getAssets(), "fonts/SolaimanLipi.ttf");
@@ -280,7 +280,7 @@ public class ShowPost extends AppCompatActivity {
         } else if (get_tab.equals("tab4")) {
             title.setText(tab4.mListPost.get(position).getTitle().getRendered());
             //details.setText( MainActivity.mListPost.get(position).getModified());
-            share = tab4.mListPost.get(position).getTitle().getRendered();
+            //share = tab4.mListPost.get(position).getTitle().getRendered();
 
             Typeface font = Typeface.createFromAsset(ShowPost.this.getAssets(), "fonts/SolaimanLipi.ttf");
             title.setTypeface(font);

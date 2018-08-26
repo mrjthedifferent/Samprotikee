@@ -95,7 +95,7 @@ public class MainActivity extends AppCompatActivity
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
-        if (id == R.id.nav_international) {
+        /*if (id == R.id.nav_international) {
             //Create an alertdialog
             final AlertDialog.Builder Checkbuilder=new  AlertDialog.Builder(MainActivity.this);
             Checkbuilder.setTitle("দুঃখিত!");
@@ -155,7 +155,7 @@ public class MainActivity extends AppCompatActivity
             Checkbuilder.setNegativeButton("ঠিক আছে", null);
             AlertDialog alert=Checkbuilder.create();
             alert.show();
-        }else if (id == R.id.nav_contact) {
+        }else */ if (id == R.id.nav_contact) {
 
             Intent login = new Intent(MainActivity.this, contact.class);
             startActivity(login);

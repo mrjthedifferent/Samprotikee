@@ -72,7 +72,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter {
         }else if(tab.equals("tab4")){
             view = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item3, parent, false);
             viewHolder = new ImageTypeViewHolder(view);
-        }else {
+        }else if(tab.equals("tab1")) {
             if (viewType == 0) {
                 view = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item3, parent, false);
                 viewHolder = new ImageTypeViewHolder(view);

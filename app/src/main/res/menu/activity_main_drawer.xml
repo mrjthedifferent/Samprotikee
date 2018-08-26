@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:showIn="navigation_view">
 
-    <group android:checkableBehavior="single">
+    <!--<group android:checkableBehavior="single">
         <item
             android:id="@+id/nav_international"
             android:title="আন্তর্জাতিক সংবাদ" />
@@ -23,7 +23,7 @@
             android:id="@+id/nav_regular"
             android:title="ধারাবাহিক" />
 
-    </group>
+    </group>-->
 
     <item android:title="Communicate">
         <menu>
