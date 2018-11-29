@@ -50,6 +50,8 @@ public class ShowPost extends AppCompatActivity {
         comment = (Button) findViewById(R.id.comments);
         nextnews = (CardView) findViewById(R.id.nextnews);
 
+        comment.setVisibility(View.GONE);
+
 
         comment.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -102,43 +104,50 @@ public class ShowPost extends AppCompatActivity {
                             .dontTransform())
                     .into(post_img);
 
-            String head = "<html> <head> <style> img { display: none; } </style></head> <body style=\"text-align:justify;color:black;\">";
+            String head = "<html> <head> <style type=\"text/css\"> @font-face {\n" +
+                    "    font-family: roboto;\n" +
+                    "    src: url('fonts/SolaimanLipi.ttf');\n" +
+                    "} img { display: none; } </style></head> <body style=\"font-family: roboto;text-align:justify;color:black;\">";
             String data = tab1.mListPost.get(position).getContent().getRendered();
             String footer = "</body></html>";
             String total = head + data + footer;
-            content.loadData(total, "text/html; charset=utf-8", "UTF-8");
+            content.loadDataWithBaseURL("file:///android_asset/", total, "text/html", "utf-8", null);
 
-            //next news coding
-            title2.setText(tab1.mListPost.get(position + 1).getTitle().getRendered());
-            String date2 = tab1.mListPost.get(position + 1).getModified();
-            Date d2 = null;
-            try {
-                d2 = (new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss")).parse(date2);
-            } catch (ParseException e) {
-                e.printStackTrace();
-            }
-            @SuppressLint("SimpleDateFormat") String s22 = (new SimpleDateFormat("dd MMMM yyyy hh:mm a")).format(d);
-            System.out.println("s22 " + s22);
-            subtitle.setText(s22);
-            String link2 = tab1.mListPost.get(position + 1).getBetterFeaturedImage().getSourceUrl();
-            Glide.with(this)
-                    .load(link2)
-                    .apply(new RequestOptions()
-                            .placeholder(R.drawable.on_loading)
-                            .centerCrop()
-                            .dontAnimate()
-                            .dontTransform())
-                    .into(icon);
-
-            nextnews.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    Intent detail = new Intent(ShowPost.this, ShowPost.class);
-                    detail.putExtra("itemPosition", position + 1);
-                    detail.putExtra("get_tab", "tab1");
-                    startActivity(detail);
+            if (position <= 18) {
+                //next news coding
+                title2.setText(tab1.mListPost.get(position + 1).getTitle().getRendered());
+                String date2 = tab1.mListPost.get(position + 1).getModified();
+                Date d2 = null;
+                try {
+                    d2 = (new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss")).parse(date2);
+                } catch (ParseException e) {
+                    e.printStackTrace();
                 }
-            });
+                @SuppressLint("SimpleDateFormat") String s22 = (new SimpleDateFormat("dd MMMM yyyy hh:mm a")).format(d);
+                System.out.println("s22 " + s22);
+                subtitle.setText(s22);
+                String link2 = tab1.mListPost.get(position + 1).getBetterFeaturedImage().getSourceUrl();
+                Glide.with(this)
+                        .load(link2)
+                        .apply(new RequestOptions()
+                                .placeholder(R.drawable.on_loading)
+                                .centerCrop()
+                                .dontAnimate()
+                                .dontTransform())
+                        .into(icon);
+
+                nextnews.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Intent detail = new Intent(ShowPost.this, ShowPost.class);
+                        detail.putExtra("itemPosition", position + 1);
+                        detail.putExtra("get_tab", "tab1");
+                        startActivity(detail);
+                    }
+                });
+            } else {
+                nextnews.setVisibility(View.GONE);
+            }
 
         } else if (get_tab.equals("tab2")) {
 
@@ -171,43 +180,50 @@ public class ShowPost extends AppCompatActivity {
                             .dontTransform())
                     .into(post_img);
 
-            String head = "<html> <head> <style> img { display: none; } </style></head> <body style=\"text-align:justify;color:black;\">";
+            String head = "<html> <head> <style type=\"text/css\"> @font-face {\n" +
+                    "    font-family: roboto;\n" +
+                    "    src: url('fonts/SolaimanLipi.ttf');\n" +
+                    "} img { display: none; } </style></head> <body style=\"font-family: roboto;text-align:justify;color:black;\">";
             String data = tab2.mListPost2.get(position).getContent().getRendered();
             String footer = "</body></html>";
             String total = head + data + footer;
-            content.loadData(total, "text/html; charset=utf-8", "UTF-8");
+            content.loadDataWithBaseURL("file:///android_asset/", total, "text/html", "utf-8", null);
 
             //next news coding
-            title2.setText(tab2.mListPost2.get(position + 1).getTitle().getRendered());
-            String date2 = tab2.mListPost2.get(position + 1).getModified();
-            Date d2 = null;
-            try {
-                d2 = (new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss")).parse(date2);
-            } catch (ParseException e) {
-                e.printStackTrace();
-            }
-            @SuppressLint("SimpleDateFormat") String s22 = (new SimpleDateFormat("dd MMMM yyyy hh:mm a")).format(d);
-            System.out.println("s22 " + s22);
-            subtitle.setText(s22);
-            String link2 = tab2.mListPost2.get(position + 1).getBetterFeaturedImage().getSourceUrl();
-            Glide.with(this)
-                    .load(link2)
-                    .apply(new RequestOptions()
-                            .placeholder(R.drawable.on_loading)
-                            .centerCrop()
-                            .dontAnimate()
-                            .dontTransform())
-                    .into(icon);
-
-            nextnews.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    Intent detail = new Intent(ShowPost.this, ShowPost.class);
-                    detail.putExtra("itemPosition", position + 1);
-                    detail.putExtra("get_tab", "tab2");
-                    startActivity(detail);
+            if (position <= 18) {
+                title2.setText(tab2.mListPost2.get(position + 1).getTitle().getRendered());
+                String date2 = tab2.mListPost2.get(position + 1).getModified();
+                Date d2 = null;
+                try {
+                    d2 = (new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss")).parse(date2);
+                } catch (ParseException e) {
+                    e.printStackTrace();
                 }
-            });
+                @SuppressLint("SimpleDateFormat") String s22 = (new SimpleDateFormat("dd MMMM yyyy hh:mm a")).format(d);
+                System.out.println("s22 " + s22);
+                subtitle.setText(s22);
+                String link2 = tab2.mListPost2.get(position + 1).getBetterFeaturedImage().getSourceUrl();
+                Glide.with(this)
+                        .load(link2)
+                        .apply(new RequestOptions()
+                                .placeholder(R.drawable.on_loading)
+                                .centerCrop()
+                                .dontAnimate()
+                                .dontTransform())
+                        .into(icon);
+
+                nextnews.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Intent detail = new Intent(ShowPost.this, ShowPost.class);
+                        detail.putExtra("itemPosition", position + 1);
+                        detail.putExtra("get_tab", "tab2");
+                        startActivity(detail);
+                    }
+                });
+            } else {
+                nextnews.setVisibility(View.GONE);
+            }
 
         } else if (get_tab.equals("tab3")) {
             title.setText(tab3.mListPost.get(position).getTitle().getRendered());
@@ -239,43 +255,50 @@ public class ShowPost extends AppCompatActivity {
                             .dontTransform())
                     .into(post_img);
 
-            String head = "<html> <head> <style> img { display: none; } </style></head> <body style=\"text-align:justify;color:black;\">";
+            String head = "<html> <head> <style type=\"text/css\"> @font-face {\n" +
+                    "    font-family: roboto;\n" +
+                    "    src: url('fonts/SolaimanLipi.ttf');\n" +
+                    "} img { display: none; } </style></head> <body style=\"font-family: roboto;text-align:justify;color:black;\">";
             String data = tab3.mListPost.get(position).getContent().getRendered();
             String footer = "</body></html>";
             String total = head + data + footer;
-            content.loadData(total, "text/html; charset=utf-8", "UTF-8");
+            content.loadDataWithBaseURL("file:///android_asset/", total, "text/html", "utf-8", null);
 
             //next news coding
-            title2.setText(tab3.mListPost.get(position + 1).getTitle().getRendered());
-            String date2 = tab3.mListPost.get(position + 1).getModified();
-            Date d2 = null;
-            try {
-                d2 = (new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss")).parse(date2);
-            } catch (ParseException e) {
-                e.printStackTrace();
-            }
-            @SuppressLint("SimpleDateFormat") String s22 = (new SimpleDateFormat("dd MMMM yyyy hh:mm a")).format(d);
-            System.out.println("s22 " + s22);
-            subtitle.setText(s22);
-            String link2 = tab3.mListPost.get(position + 1).getBetterFeaturedImage().getSourceUrl();
-            Glide.with(this)
-                    .load(link2)
-                    .apply(new RequestOptions()
-                            .placeholder(R.drawable.on_loading)
-                            .centerCrop()
-                            .dontAnimate()
-                            .dontTransform())
-                    .into(icon);
-
-            nextnews.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    Intent detail = new Intent(ShowPost.this, ShowPost.class);
-                    detail.putExtra("itemPosition", position + 1);
-                    detail.putExtra("get_tab", "tab3");
-                    startActivity(detail);
+            if (position <= 18) {
+                title2.setText(tab3.mListPost.get(position + 1).getTitle().getRendered());
+                String date2 = tab3.mListPost.get(position + 1).getModified();
+                Date d2 = null;
+                try {
+                    d2 = (new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss")).parse(date2);
+                } catch (ParseException e) {
+                    e.printStackTrace();
                 }
-            });
+                @SuppressLint("SimpleDateFormat") String s22 = (new SimpleDateFormat("dd MMMM yyyy hh:mm a")).format(d);
+                System.out.println("s22 " + s22);
+                subtitle.setText(s22);
+                String link2 = tab3.mListPost.get(position + 1).getBetterFeaturedImage().getSourceUrl();
+                Glide.with(this)
+                        .load(link2)
+                        .apply(new RequestOptions()
+                                .placeholder(R.drawable.on_loading)
+                                .centerCrop()
+                                .dontAnimate()
+                                .dontTransform())
+                        .into(icon);
+
+                nextnews.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Intent detail = new Intent(ShowPost.this, ShowPost.class);
+                        detail.putExtra("itemPosition", position + 1);
+                        detail.putExtra("get_tab", "tab3");
+                        startActivity(detail);
+                    }
+                });
+            } else {
+                nextnews.setVisibility(View.GONE);
+            }
 
         } else if (get_tab.equals("tab4")) {
             title.setText(tab4.mListPost.get(position).getTitle().getRendered());
@@ -308,43 +331,50 @@ public class ShowPost extends AppCompatActivity {
                             .dontTransform())
                     .into(post_img);
 
-            String head = "<html> <head> <style> img { display: none; } </style></head> <body style=\"text-align:justify;color:black;\">";
+            String head = "<html> <head> <style type=\"text/css\"> @font-face {\n" +
+                    "    font-family: roboto;\n" +
+                    "    src: url('fonts/SolaimanLipi.ttf');\n" +
+                    "} img { display: none; } </style></head> <body style=\"font-family: roboto;text-align:justify;color:black;\">";
             String data = tab4.mListPost.get(position).getContent().getRendered();
             String footer = "</body></html>";
             String total = head + data + footer;
-            content.loadData(total, "text/html; charset=utf-8", "UTF-8");
+            content.loadDataWithBaseURL("file:///android_asset/", total, "text/html", "utf-8", null);
 
             //next news coding
-            title2.setText(tab4.mListPost.get(position + 1).getTitle().getRendered());
-            String date2 = tab4.mListPost.get(position + 1).getModified();
-            Date d2 = null;
-            try {
-                d2 = (new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss")).parse(date2);
-            } catch (ParseException e) {
-                e.printStackTrace();
-            }
-            @SuppressLint("SimpleDateFormat") String s22 = (new SimpleDateFormat("dd MMMM yyyy hh:mm a")).format(d);
-            System.out.println("s22 " + s22);
-            subtitle.setText(s22);
-            String link2 = tab4.mListPost.get(position + 1).getBetterFeaturedImage().getSourceUrl();
-            Glide.with(this)
-                    .load(link2)
-                    .apply(new RequestOptions()
-                            .placeholder(R.drawable.on_loading)
-                            .centerCrop()
-                            .dontAnimate()
-                            .dontTransform())
-                    .into(icon);
-
-            nextnews.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    Intent detail = new Intent(ShowPost.this, ShowPost.class);
-                    detail.putExtra("itemPosition", position + 1);
-                    detail.putExtra("get_tab", "tab4");
-                    startActivity(detail);
+            if (position <= 18) {
+                title2.setText(tab4.mListPost.get(position + 1).getTitle().getRendered());
+                String date2 = tab4.mListPost.get(position + 1).getModified();
+                Date d2 = null;
+                try {
+                    d2 = (new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss")).parse(date2);
+                } catch (ParseException e) {
+                    e.printStackTrace();
                 }
-            });
+                @SuppressLint("SimpleDateFormat") String s22 = (new SimpleDateFormat("dd MMMM yyyy hh:mm a")).format(d);
+                System.out.println("s22 " + s22);
+                subtitle.setText(s22);
+                String link2 = tab4.mListPost.get(position + 1).getBetterFeaturedImage().getSourceUrl();
+                Glide.with(this)
+                        .load(link2)
+                        .apply(new RequestOptions()
+                                .placeholder(R.drawable.on_loading)
+                                .centerCrop()
+                                .dontAnimate()
+                                .dontTransform())
+                        .into(icon);
+
+                nextnews.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Intent detail = new Intent(ShowPost.this, ShowPost.class);
+                        detail.putExtra("itemPosition", position + 1);
+                        detail.putExtra("get_tab", "tab4");
+                        startActivity(detail);
+                    }
+                });
+            } else {
+                nextnews.setVisibility(View.GONE);
+            }
 
         } else {
 
@@ -377,43 +407,50 @@ public class ShowPost extends AppCompatActivity {
                             .dontTransform())
                     .into(post_img);
 
-            String head = "<html> <head> <style> img { display: none; } </style></head> <body style=\"text-align:justify;color:black;\">";
+            String head = "<html> <head> <style type=\"text/css\"> @font-face {\n" +
+                    "    font-family: roboto;\n" +
+                    "    src: url('fonts/SolaimanLipi.ttf');\n" +
+                    "} img { display: none; } </style></head> <body style=\"font-family: roboto;text-align:justify;color:black;\">";
             String data = tab1.mListPost.get(position).getContent().getRendered();
             String footer = "</body></html>";
             String total = head + data + footer;
-            content.loadData(total, "text/html; charset=utf-8", "UTF-8");
+            content.loadDataWithBaseURL("file:///android_asset/", total, "text/html", "utf-8", null);
 
             //next news coding
-            title2.setText(tab1.mListPost.get(position + 1).getTitle().getRendered());
-            String date2 = tab1.mListPost.get(position + 1).getModified();
-            Date d2 = null;
-            try {
-                d2 = (new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss")).parse(date2);
-            } catch (ParseException e) {
-                e.printStackTrace();
-            }
-            @SuppressLint("SimpleDateFormat") String s22 = (new SimpleDateFormat("dd MMMM yyyy hh:mm a")).format(d);
-            System.out.println("s22 " + s22);
-            subtitle.setText(s22);
-            String link2 = tab1.mListPost.get(position + 1).getBetterFeaturedImage().getSourceUrl();
-            Glide.with(this)
-                    .load(link2)
-                    .apply(new RequestOptions()
-                            .placeholder(R.drawable.on_loading)
-                            .centerCrop()
-                            .dontAnimate()
-                            .dontTransform())
-                    .into(icon);
-
-            nextnews.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    Intent detail = new Intent(ShowPost.this, ShowPost.class);
-                    detail.putExtra("itemPosition", position + 1);
-                    detail.putExtra("get_tab", "tab1");
-                    startActivity(detail);
+            if (position <= 18) {
+                title2.setText(tab1.mListPost.get(position + 1).getTitle().getRendered());
+                String date2 = tab1.mListPost.get(position + 1).getModified();
+                Date d2 = null;
+                try {
+                    d2 = (new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss")).parse(date2);
+                } catch (ParseException e) {
+                    e.printStackTrace();
                 }
-            });
+                @SuppressLint("SimpleDateFormat") String s22 = (new SimpleDateFormat("dd MMMM yyyy hh:mm a")).format(d);
+                System.out.println("s22 " + s22);
+                subtitle.setText(s22);
+                String link2 = tab1.mListPost.get(position + 1).getBetterFeaturedImage().getSourceUrl();
+                Glide.with(this)
+                        .load(link2)
+                        .apply(new RequestOptions()
+                                .placeholder(R.drawable.on_loading)
+                                .centerCrop()
+                                .dontAnimate()
+                                .dontTransform())
+                        .into(icon);
+
+                nextnews.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Intent detail = new Intent(ShowPost.this, ShowPost.class);
+                        detail.putExtra("itemPosition", position + 1);
+                        detail.putExtra("get_tab", "tab1");
+                        startActivity(detail);
+                    }
+                });
+            } else {
+                nextnews.setVisibility(View.GONE);
+            }
         }
 
 
@@ -466,35 +503,35 @@ public class ShowPost extends AppCompatActivity {
                 Intent sendIntent = new Intent();
                 sendIntent.setAction(Intent.ACTION_SEND);
                 sendIntent.putExtra(Intent.EXTRA_TEXT,
-                        "সংবাদটি সাংম্প্রতিকী অ্যান্ড্রয়েড অ্যাপ থেকে শেয়ার করা হয়েছে। \n" + tab1.mListPost.get(position).getGuid().getRendered());
+                        "সংবাদটি সাম্প্রতিকী অ্যাপ থেকে শেয়ার করা হয়েছে। \n" + tab1.mListPost.get(position).getGuid().getRendered());
                 sendIntent.setType("text/plain");
                 startActivity(sendIntent);
             } else if (get_tab.equals("tab2")) {
                 Intent sendIntent = new Intent();
                 sendIntent.setAction(Intent.ACTION_SEND);
                 sendIntent.putExtra(Intent.EXTRA_TEXT,
-                        "সংবাদটি সাংম্প্রতিকী অ্যান্ড্রয়েড অ্যাপ থেকে শেয়ার করা হয়েছে। \n" + tab2.mListPost2.get(position).getGuid().getRendered());
+                        "সংবাদটি সাম্প্রতিকী অ্যাপ থেকে শেয়ার করা হয়েছে। \n" + tab2.mListPost2.get(position).getGuid().getRendered());
                 sendIntent.setType("text/plain");
                 startActivity(sendIntent);
             } else if (get_tab.equals("tab3")) {
                 Intent sendIntent = new Intent();
                 sendIntent.setAction(Intent.ACTION_SEND);
                 sendIntent.putExtra(Intent.EXTRA_TEXT,
-                        "সংবাদটি সাংম্প্রতিকী অ্যান্ড্রয়েড অ্যাপ থেকে শেয়ার করা হয়েছে। \n" + tab3.mListPost.get(position).getGuid().getRendered());
+                        "সংবাদটি সাম্প্রতিকী অ্যাপ থেকে শেয়ার করা হয়েছে। \n" + tab3.mListPost.get(position).getGuid().getRendered());
                 sendIntent.setType("text/plain");
                 startActivity(sendIntent);
             } else if (get_tab.equals("tab4")) {
                 Intent sendIntent = new Intent();
                 sendIntent.setAction(Intent.ACTION_SEND);
                 sendIntent.putExtra(Intent.EXTRA_TEXT,
-                        "সংবাদটি সাংম্প্রতিকী অ্যান্ড্রয়েড অ্যাপ থেকে শেয়ার করা হয়েছে। \n" + tab4.mListPost.get(position).getGuid().getRendered());
+                        "সংবাদটি সাম্প্রতিকী অ্যাপ থেকে শেয়ার করা হয়েছে। \n" + tab4.mListPost.get(position).getGuid().getRendered());
                 sendIntent.setType("text/plain");
                 startActivity(sendIntent);
             } else {
                 Intent sendIntent = new Intent();
                 sendIntent.setAction(Intent.ACTION_SEND);
                 sendIntent.putExtra(Intent.EXTRA_TEXT,
-                        "সংবাদটি সাংম্প্রতিকী অ্যান্ড্রয়েড অ্যাপ থেকে শেয়ার করা হয়েছে। \n" + tab1.mListPost.get(position).getGuid().getRendered());
+                        "সংবাদটি সাম্প্রতিকী অ্যাপ থেকে শেয়ার করা হয়েছে। \n" + tab1.mListPost.get(position).getGuid().getRendered());
                 sendIntent.setType("text/plain");
                 startActivity(sendIntent);
             }

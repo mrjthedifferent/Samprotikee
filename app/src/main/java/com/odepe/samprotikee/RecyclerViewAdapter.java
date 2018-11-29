@@ -2,6 +2,7 @@ package com.odepe.samprotikee;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,6 +14,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.github.curioustechizen.ago.RelativeTimeTextView;
 
+import java.lang.reflect.Type;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Date;
@@ -48,6 +50,11 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter {
             title = (TextView) itemView.findViewById(R.id.title);
             imageView = (ImageView) itemView.findViewById(R.id.Icon);
             subtitle = (RelativeTimeTextView) itemView.findViewById(R.id.subtitle);
+
+            Typeface tf_regular;
+
+            tf_regular = Typeface.createFromAsset(itemView.getContext().getAssets(), "fonts/SolaimanLipi.ttf");
+            this.title.setTypeface(tf_regular);
         }
     }
 
@@ -63,7 +70,6 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter {
         RecyclerView.ViewHolder viewHolder = null;
 
         if (tab.equals("tab2")) {
-
             view = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item2, parent, false);
             viewHolder = new ImageTypeViewHolder(view);
         } else if(tab.equals("tab3")){
